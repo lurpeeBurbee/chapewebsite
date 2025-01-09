@@ -1,25 +1,59 @@
-// get video element
+// Get video element
 const video = document.getElementById("myVideo");
 const container = document.getElementById("videoContainer");
 
-// set the container height according to video length
+// Set the container height according to video length
 video.addEventListener('loadedmetadata', function() {
-  const speed = 250; // can be any number (adjust to your preference)
+  const speed = 250; // Can be any number (adjust to your preference)
   container.style.height = (video.duration * speed) + 'px';
 });
 
-// play video using scroll values
-// function is attached to scroll event.
+let isScrolling = false;
 
+// Play video using scroll values
 const playVideo = () => {
-  // get current scroll progress
+  // Get current scroll progress
   var scrollY = window.scrollY;
-  // get total page height and calculate percentage
+  // Get total page height and calculate percentage
   var height = document.documentElement.scrollHeight - window.innerHeight;
   var percentage = (scrollY / height);
-  // set video playback position.
+  // Set video playback position
   video.currentTime = video.duration * percentage;
-  window.requestAnimationFrame(playVideo);
+  isScrolling = false;
 };
 
-window.addEventListener("scroll", playVideo);
+// Throttle scroll events
+window.addEventListener("scroll", () => {
+  if (!isScrolling) {
+    window.requestAnimationFrame(playVideo);
+    isScrolling = true;
+  }
+});
+
+
+
+// // get video element
+// const video = document.getElementById("myVideo");
+// const container = document.getElementById("videoContainer");
+
+// // set the container height according to video length
+// video.addEventListener('loadedmetadata', function() {
+//   const speed = 250; // can be any number (adjust to your preference)
+//   container.style.height = (video.duration * speed) + 'px';
+// });
+
+// // play video using scroll values
+// // function is attached to scroll event.
+
+// const playVideo = () => {
+//   // get current scroll progress
+//   var scrollY = window.scrollY;
+//   // get total page height and calculate percentage
+//   var height = document.documentElement.scrollHeight - window.innerHeight;
+//   var percentage = (scrollY / height);
+//   // set video playback position.
+//   video.currentTime = video.duration * percentage;
+//   window.requestAnimationFrame(playVideo);
+// };
+
+// window.addEventListener("scroll", playVideo);
