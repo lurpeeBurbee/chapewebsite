@@ -1,7 +1,10 @@
-// Get video element
+// Get video element and controls
 const video = document.getElementById("myVideo");
 const container = document.getElementById("videoContainer");
 const counter = document.getElementById("counter");
+const playButton = document.getElementById("play");
+const rewindButton = document.getElementById("rewind");
+const forwardButton = document.getElementById("forward");
 
 // Set the container height according to video length
 video.addEventListener('loadedmetadata', function() {
@@ -23,13 +26,18 @@ const playVideo = () => {
     // Set video playback position
     video.currentTime = video.duration * (percentage / 100);
     // Update counter
-    counter.textContent = `${Math.floor(percentage)}%`;
-    
-    // Update counter background color (Synthwave colors)
-    let colorValue = Math.floor(percentage * 2.55);
-    counter.style.backgroundColor = `rgb(${colorValue}, 0, ${255 - colorValue})`;
+    updateCounter(percentage);
   }
   isScrolling = false;
+};
+
+// Update counter
+const updateCounter = (percentage) => {
+  counter.textContent = `${Math.floor(percentage)}%`;
+
+  // Update counter background color (Synthwave colors)
+  let colorValue = Math.floor(percentage * 2.55);
+  counter.style.backgroundColor = `rgb(${colorValue}, 0, ${255 - colorValue})`;
 };
 
 // Throttle scroll events
@@ -51,3 +59,31 @@ document.addEventListener('touchmove', () => {
     isScrolling = true;
   }
 }, { passive: false });
+
+// Play/Pause video
+playButton.addEventListener("click", () => {
+  if (video.paused) {
+    video.play();
+    playButton.textContent = "⏸️";
+  } else {
+    video.pause();
+    playButton.textContent = "▶️";
+  }
+});
+
+// Rewind video
+rewindButton.addEventListener("click", () => {
+  video.currentTime -= 1; // Rewind by 5 seconds
+  updateCounter((video.currentTime / video.duration) * 100);
+});
+
+// Fast forward video
+forwardButton.addEventListener("click", () => {
+  video.currentTime += 1; // Fast forward by 5 seconds
+  updateCounter((video.currentTime / video.duration) * 100);
+});
+
+// Update counter while video plays
+video.addEventListener('timeupdate', () => {
+  updateCounter((video.currentTime / video.duration) * 100);
+});
