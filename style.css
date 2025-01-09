@@ -1,13 +1,29 @@
-
-
 * {
   margin: 0;
   padding: 0;
 }
 
+body {
+  background-color: black;
+}
+
 #videoContainer {
   height: 70vh;
   overflow: visible;
+  margin-top: 50px; /* Adds space below the title */
+}
+
+#titleContainer {
+  background-color: rgb(48, 48, 48);
+  color: white;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  z-index: 1;
+  /* Ensures the title stays on top of the video */
 }
 
 #myVideo {
@@ -18,4 +34,10 @@
   transform: translate(-50%, -50%);
 }
 
-
+#myVideo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 58%;
+  transform: translate(-50%, -50%);
+}
