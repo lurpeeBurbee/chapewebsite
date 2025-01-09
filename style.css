@@ -10,7 +10,8 @@ body {
 #videoContainer {
   height: 70vh;
   overflow: visible;
-  margin-top: 50px; /* Adds space below the title */
+  margin-top: 50px;
+  /* Adds space below the title */
 }
 
 #titleContainer {
@@ -24,6 +25,15 @@ body {
   padding: 10px 0;
   z-index: 1;
   /* Ensures the title stays on top of the video */
+}
+
+#counter {
+  margin-top: 10px;
+  border: 2px solid white;
+  font-size: 3em;
+  /* 3 times larger */
+  padding: 10px;
+  display: inline-block;
 }
 
 #myVideo {

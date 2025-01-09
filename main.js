@@ -1,6 +1,7 @@
 // Get video element
 const video = document.getElementById("myVideo");
 const container = document.getElementById("videoContainer");
+const counter = document.getElementById("counter");
 
 // Set the container height according to video length
 video.addEventListener('loadedmetadata', function() {
@@ -10,15 +11,22 @@ video.addEventListener('loadedmetadata', function() {
 
 let isScrolling = false;
 
-// Play video using scroll values
+// Play video using scroll values and update counter
 const playVideo = () => {
   // Get current scroll progress
   var scrollY = window.scrollY;
   // Get total page height and calculate percentage
   var height = document.documentElement.scrollHeight - window.innerHeight;
-  var percentage = (scrollY / height);
+  var percentage = (scrollY / height) * 100;
   // Set video playback position
-  video.currentTime = video.duration * percentage;
+  video.currentTime = video.duration * (percentage / 100);
+  // Update counter
+  counter.textContent = `${Math.floor(percentage)}%`;
+
+  // Update counter background color (Synthwave colors)
+  let colorValue = Math.floor(percentage * 2.55);
+  counter.style.backgroundColor = `rgb(${colorValue}, 0, ${255 - colorValue})`;
+
   isScrolling = false;
 };
 
@@ -29,31 +37,3 @@ window.addEventListener("scroll", () => {
     isScrolling = true;
   }
 });
-
-
-
-// // get video element
-// const video = document.getElementById("myVideo");
-// const container = document.getElementById("videoContainer");
-
-// // set the container height according to video length
-// video.addEventListener('loadedmetadata', function() {
-//   const speed = 250; // can be any number (adjust to your preference)
-//   container.style.height = (video.duration * speed) + 'px';
-// });
-
-// // play video using scroll values
-// // function is attached to scroll event.
-
-// const playVideo = () => {
-//   // get current scroll progress
-//   var scrollY = window.scrollY;
-//   // get total page height and calculate percentage
-//   var height = document.documentElement.scrollHeight - window.innerHeight;
-//   var percentage = (scrollY / height);
-//   // set video playback position.
-//   video.currentTime = video.duration * percentage;
-//   window.requestAnimationFrame(playVideo);
-// };
-
-// window.addEventListener("scroll", playVideo);
