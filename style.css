@@ -20,6 +20,26 @@
   display: inline-block;
 }
 
+/* Progress Bar Container */
+#progressBar {
+  width: 58%; /* Matches the video width */
+  height: 10px; /* Height of the progress bar */
+  background-color: rgba(255, 255, 255, 0.2); /* Light background for contrast */
+  margin: 10px auto; /* Center the progress bar */
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+/* Progress Indicator */
+#progress {
+  height: 100%;
+  width: 0%; /* Starts empty */
+  background: linear-gradient(to right, red, purple, blue); /* Gradient color */
+  transition: width 0.1s ease-out; /* Smooth transition */
+}
+
+
 #myVideo {
   position: fixed;
   top: 50%;

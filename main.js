@@ -7,7 +7,7 @@ const rewindButton = document.getElementById("rewind");
 const forwardButton = document.getElementById("forward");
 
 // Set the container height according to video length
-video.addEventListener('loadedmetadata', function() {
+video.addEventListener('loadedmetadata', function () {
   const speed = 250; // Can be any number (adjust to your preference)
   container.style.height = (video.duration * speed) + 'px';
 });
@@ -16,29 +16,45 @@ let isScrolling = false;
 
 // Play video using scroll values and update counter
 const playVideo = () => {
-  // Get current scroll progress
-  var scrollY = window.scrollY;
-  // Get total page height and calculate percentage
-  var height = document.documentElement.scrollHeight - window.innerHeight;
-  var percentage = (scrollY / height) * 100;
-  // Ensure percentage is valid
+  const scrollY = window.scrollY;
+  const height = document.documentElement.scrollHeight - window.innerHeight;
+
+  // Ensure percentage calculation is accurate
+  let percentage = (scrollY / height) * 100;
+
+  // Force percentage to 100 when scrolled to the bottom
+  if (scrollY + window.innerHeight >= document.documentElement.scrollHeight -1) {
+    percentage = 100;
+
+  }
+
   if (!isNaN(percentage) && isFinite(percentage)) {
-    // Set video playback position
     video.currentTime = video.duration * (percentage / 100);
-    // Update counter
     updateCounter(percentage);
   }
+
   isScrolling = false;
 };
 
-// Update counter
-const updateCounter = (percentage) => {
-  counter.textContent = `${Math.floor(percentage)}%`;
 
-  // Update counter background color (Synthwave colors)
-  let colorValue = Math.floor(percentage * 2.55);
+const updateCounter = (percentage) => {
+  const displayPercentage = Math.min(100, Math.floor(percentage)); // Limit to 100%
+
+  // Update percentage text
+  counter.textContent = `${displayPercentage}%`;
+
+  // Update counter background color
+  let colorValue = Math.floor(displayPercentage * 2.55);
   counter.style.backgroundColor = `rgb(${colorValue}, 0, ${255 - colorValue})`;
+
+  // Update progress bar width and color gradient
+  const progressBar = document.getElementById("progress");
+  progressBar.style.width = `${displayPercentage}%`;
+  progressBar.style.background = `linear-gradient(to right, rgb(${colorValue}, 0, ${255 - colorValue}), rgb(${colorValue - 20}, 0, ${255 - colorValue + 20}))`;
 };
+
+
+
 
 // Throttle scroll events
 window.addEventListener("scroll", () => {
