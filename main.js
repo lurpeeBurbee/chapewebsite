@@ -1,5 +1,5 @@
 // Get video element and controls
-const video = document.getElementById("myVideo");
+const video = document.getElementById("videofile");
 const container = document.getElementById("videoContainer");
 const counter = document.getElementById("counter");
 const playButton = document.getElementById("play");
