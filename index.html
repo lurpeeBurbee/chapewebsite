@@ -28,14 +28,19 @@
 <body>
     <div id="wrapper">
         <div id="titleContainer">
-            <h1>Scroll down or use the controllers to see how you get to Chape:</h1>
+            <h1>Use the controllers to see how you get to Chape:</h1>
             <div id="counter">0%</div>
             <div id="progressBar">
                 <div id="progress"></div>
             </div>
         </div>
         <div id="videoContainer">
-            <div id="mapContainer"></div> <!-- Map area -->
+            <div id="mapContainer">
+                <div id="arrowContainer"></div>
+                <canvas id="arrowCanvas"></canvas> <!-- Keep the canvas for the arrow image -->
+
+            </div> <!-- Map area -->
+      
             <video id="videofile" muted>
                 <source src="videos/walking.mp4" type="video/mp4" />
             </video>
@@ -46,6 +51,6 @@
             <button id="forward">⏩</button>
         </div>
     </div>
-    
+    <script src="arrowRailwayStation.js"></script>
 </body>
 </html>
