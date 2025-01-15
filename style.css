@@ -1,118 +1,214 @@
-/* Base styles */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+/* Wrapper container styles */
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
   background-color: black;
 }
 
-#wrapper {
-  border: 10px solid yellow; /* Yellow border for desktop */
-  height: 100vh;
-  box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
-  #wrapper {
-      border-color: green; /* Green border for mobile */
-  }
-}
-
+/* Title section */
 #titleContainer {
   background-color: rgb(48, 48, 48);
   color: white;
   text-align: center;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
   padding: 10px 0;
   z-index: 1;
 }
 
-#counter {
-  margin-top: 10px;
-  border: 2px solid white;
-  font-size: 3em;
-  padding: 10px;
-  display: inline-block;
-}
-
-#progressBar {
-  width: 35%; /* Matches video width */
-  height: 10px;
-  background-color: rgba(255, 255, 255, 0.2);
-  margin: 10px auto;
-  position: relative;
-  border-radius: 5px;
+/* Video and Map container */
+#videoContainer {
+  display: flex;
+  flex: 1; /* Takes up most of the vertical space */
   overflow: hidden;
 }
 
-/* Progress Indicator */
-#progress {
-  height: 100%;
-  width: 0%; /* Starts empty */
-  background: linear-gradient(to right, red, purple, blue);
-  transition: width 0.1s ease-out;
-}
-
-#videoContainer {
-  height: 70vh;
-  overflow: visible;
-  margin-top: 100px;
+#mapContainer {
+  flex: 1; /* Equal space for map */
+  background-color: orange; /* Default background color */
+  transition: background-color 0.3s ease;
 }
 
 #videofile {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 35%;
-  transform: translate(-50%, -50%);
-  height: auto;
+  flex: 1; /* Equal space for video */
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
 }
 
 #controls {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
-  gap: 5px;
-  width: 35%; /* Matches video width */
+  justify-content: center;
+  align-items: center;
   background-color: gray;
-  padding: 5px;
+  padding: 10px;
+  gap: 10px;
   border-radius: 10px;
+  width: 35%; /* Matches the video's width */
+  position: fixed; /* Keeps it aligned with the video */
+  bottom: 10px;
+  right: 10%; /* Centers under the video */
   box-sizing: border-box;
+  z-index: 2; /* Ensures it's above the video */
 }
 
+/* Buttons */
 button {
-  flex: 1; /* Buttons take equal space */
+  flex: 1;
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
   border: none;
   font-size: 1.5em;
   cursor: pointer;
   padding: 15px;
-  margin: 2px; /* Small margin for visual separation */
+}
+
+button:active {
+  transform: scale(0.95);
+}
+/* Progress Bar Container */
+#progressBar {
+  width: 90%; /* Full width under percentage indicator */
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.2); /* Light background for contrast */
+  margin: 10px auto; /* Center below the percentage indicator */
+  position: relative; /* Stacks naturally below percentage indicator */
+  top: 10px; /* Adds space between the counter and progress bar */
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 2; /* Ensure visibility above background elements */
+}
+
+/* Progress Indicator */
+#progress {
+  height: 100%;
+  width: 0%; /* Starts empty */
+  background: linear-gradient(to right, rgb(173, 216, 230), rgb(255, 0, 0)); /* Icy Blue to Warm Red */
+  transition: width 0.1s ease-out; /* Smooth transition */
+}
+
+#mapContainer {
+  flex: 1; /* Equal space for the map */
+  background-image: url('images/mapview-railwaystation.jpg'); /* Set the image as the background */
+  background-repeat: no-repeat; /* Avoid tiling */
+  background-position: center; /* Center the image */
+  background-size: contain; /* Keep the image's aspect ratio and fully fit within the container */
+  background-color: black; /* Fallback color if the image doesn't load */
+  transition: background-color 0.3s ease;
+}
+
+
+
+/* Media Queries for Larger Screens */
+@media (min-width: 769px) {
+  #progressBar {
+    width: 90%; /* Keep progress bar aligned across all screen sizes */
+    position: relative; /* Stays under the percentage indicator */
+    top: 10px; /* Ensures spacing consistency */
+    margin: 10 auto; /* Center horizontally */
+  }
+}
+
+/* Media Queries for Smaller Screens */
+@media (max-width: 768px) {
+  #progressBar {
+    width: 90%; /* Full width under percentage indicator */
+    position: relative; /* Stacks naturally below percentage indicator */
+    top: 10px; /* Consistent spacing */
+    margin: 10px auto;
+  }
+}
+
+
+
+/* Controls */
+#controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  padding: 10px;
+  gap: 10px;
+  border-radius: 10px;
+  width: 35%; /* Matches the video's width */
+  position: fixed; /* Keeps it aligned with the video */
+  bottom: 10px; /* Positioned at the bottom */
+  left: 75%; /* Centered horizontally under the video */
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  z-index: 2; /* Ensures it's above the video */
+}
+
+/* Buttons */
+button {
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 15px;
 }
 
 button:active {
   transform: scale(0.95);
 }
 
+
 /* Media Queries */
 @media (max-width: 768px) {
-  #progressBar,
+  #videoContainer {
+      flex-direction: column; /* Stack map and video vertically */
+  }
+
+  #mapContainer {
+      height: 50%; /* Equal height for map and video */
+      background-color: green; /* Change color for smaller screens */
+  }
+
+  #videofile {
+      height: 50%;
+  }
   #controls {
-      width: 90%; /* Take almost full width on mobile */
+      width: 90%; /* Take almost full width on smaller screens */
+      position: relative; /* Stack below the video naturally */
+      bottom: unset;
+      right: unset;
+      margin: 10px auto; /* Center horizontally */
   }
 
   button {
       font-size: 1em;
       padding: 10px;
   }
+  #progressBar {
+    width: 90%; /* Take almost full width on smaller screens */
+    position: relative; /* Stack below the video naturally */
+    bottom: unset;
+    left: unset;
+    margin: 10px auto;
+    transform: none;
+}
 
-  #videofile {
-      width: 90%;
+#controls {
+    width: 90%; /* Take almost full width on smaller screens */
+    position: relative; /* Stack below the progress bar naturally */
+    bottom: unset;
+    left: unset;
+    margin: 10px auto; /* Center horizontally */
+    transform: none;
+}
+
+button {
+    font-size: 1em;
+    padding: 10px;
+}
+
+
+}
+
+@media (min-width: 769px) {
+  #mapContainer {
+      background-color: orange; /* Default color for larger screens */
   }
 }
